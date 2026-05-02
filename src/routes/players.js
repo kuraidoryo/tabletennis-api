@@ -3,13 +3,35 @@ const router = express.Router();
 const Player = require('../models/Player');
 const auth = require('../middleware/auth');
 
+const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const buildPlayingStyleRegex = (value) => {
+  const normalized = value.trim();
+  const escaped = escapeRegex(normalized);
+
+  if (/^offensive$/i.test(normalized)) return /^offensive/i;
+  if (/^defensive$/i.test(normalized)) return /(defensive|defender)/i;
+
+  return new RegExp(escaped, 'i');
+};
+
 router.get('/', async (req, res) => {
   try {
     const filter = {};
 
-    if (req.query.gender)       filter.gender = req.query.gender;
-    if (req.query.handedness)   filter.handedness = req.query.handedness;
-    if (req.query.playingStyle) filter.playingStyle = req.query.playingStyle;
+    if (req.query.gender) filter.gender = req.query.gender;
+    if (req.query.handedness) filter.handedness = req.query.handedness;
+
+    if (req.query.firstName) {
+      filter.firstName = { $regex: new RegExp(escapeRegex(req.query.firstName.trim()), 'i') };
+    }
+    if (req.query.lastName) {
+      filter.lastName = { $regex: new RegExp(escapeRegex(req.query.lastName.trim()), 'i') };
+    }
+
+    if (req.query.playingStyle) {
+      filter.playingStyle = { $regex: buildPlayingStyleRegex(req.query.playingStyle) };
+    }
 
     const players = await Player.find(filter).sort({ lastName: 1 });
 

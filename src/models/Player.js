@@ -104,12 +104,15 @@ const playerSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: [
-      'Offensive - Close to Table',
-      'Offensive - Far from Table',
-      'Modern Defender',
-      'Classical Defender',
-      'Long Pimple Close to the Table',
-      'Anti Close to the Table'
+      'Offensive - Inverted',
+      'Offensive - Long Pimples',
+      'Offensive - Anti',
+      'Modern Defender - Inverted',
+      'Modern Defender - Long Pimples',
+      'Modern Defender - Anti',
+      'Classical Defender - Inverted',
+      'Classical Defender - Long Pimples',
+      'Classical Defender - Anti',
     ]
   },
   blade: {
