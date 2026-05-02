@@ -1,5 +1,40 @@
 const mongoose = require('mongoose');
 
+const birthDateRegex = /^\d{4}\/\d{2}\/\d{2}$/;
+
+const isValidBirthDate = (value) => {
+  if (!birthDateRegex.test(value)) return false;
+
+  const [yearStr, monthStr, dayStr] = value.split('/');
+  const year = Number(yearStr);
+  const month = Number(monthStr);
+  const day = Number(dayStr);
+
+  const date = new Date(Date.UTC(year, month - 1, day));
+
+  return date.getUTCFullYear() === year
+    && date.getUTCMonth() === month - 1
+    && date.getUTCDate() === day;
+};
+
+const calculateAge = (value) => {
+  const [yearStr, monthStr, dayStr] = value.split('/');
+  const birthYear = Number(yearStr);
+  const birthMonth = Number(monthStr);
+  const birthDay = Number(dayStr);
+
+  const now = new Date();
+  let age = now.getUTCFullYear() - birthYear;
+  const hasHadBirthdayThisYear = (
+    now.getUTCMonth() + 1 > birthMonth
+    || (now.getUTCMonth() + 1 === birthMonth && now.getUTCDate() >= birthDay)
+  );
+
+  if (!hasHadBirthdayThisYear) age -= 1;
+
+  return age;
+};
+
 const playerSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -16,11 +51,13 @@ const playerSchema = new mongoose.Schema({
     required: true,
     enum: ['Male', 'Female', 'Other']
   },
-  age: {
-    type: Number,
-    required: true,
-    min: 5,
-    max: 100
+  birthDate: {
+    type: String,
+    required: [true, 'Birth date is required'],
+    validate: {
+      validator: isValidBirthDate,
+      message: 'Birth date must be in YYYY/MM/DD format and be a valid date'
+    }
   },
   handedness: {
     type: String,
@@ -44,6 +81,11 @@ const playerSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  country: {
+    type: String,
+    required: [true, 'Country is required'],
+    trim: true
+  },
   forehands: {
     type: String,
     required: true,
@@ -55,7 +97,13 @@ const playerSchema = new mongoose.Schema({
     trim: true
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+});
+
+playerSchema.virtual('age').get(function getAge() {
+  return calculateAge(this.birthDate);
 });
 
 module.exports = mongoose.model('Player', playerSchema);

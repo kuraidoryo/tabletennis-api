@@ -45,11 +45,14 @@ node src/app.js
   "firstName": "Timo",
   "lastName": "Boll",
   "gender": "Male",
-  "age": 43,
+  "birthDate": "1981/03/08",
   "handedness": "Left-handed",
   "playingStyle": "Offensive - Close to Table",
   "blade": "Butterfly Timo Boll ALC",
+  "country": "Germany",
   "forehands": "Dignics 09C",
   "backhand": "Dignics 05"
 }
 ```
+
+`age` jest wyliczane automatycznie na podstawie `birthDate` i zwracane w odpowiedzi API.
