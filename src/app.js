@@ -31,14 +31,11 @@ app.get('/', (req, res) => {
     name: 'Table Tennis Players API',
     version: '1.0.0',
     endpoints: {
-      'GET /api/players': 'Get all players (public)',
-      'GET /api/players/:id': 'Get player by ID (public)',
-      'GET /api/players?gender=Male': 'Filter by gender (public)',
-      'GET /api/players?playingStyle=Modern Defender': 'Filter by style (public)',
-      'GET /api/players?handedness=Left-handed': 'Filter by handedness (public)',
-      'POST /api/players': 'Add new player (requires x-api-key header)',
-      'PUT /api/players/:id': 'Update player (requires x-api-key header)',
-      'DELETE /api/players/:id': 'Delete player (requires x-api-key header)'
+      'GET /api/players': 'Get all players',
+      'GET /api/players/:id': 'Get player by ID',
+      'GET /api/players?gender=Male': 'Filter by gender',
+      'GET /api/players?playingStyle=Modern Defender': 'Filter by style',
+      'GET /api/players?handedness=Left-handed': 'Filter by handedness',
     },
     playingStyles: [
       'Offensive - Close to Table',
