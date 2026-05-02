@@ -35,6 +35,42 @@ const calculateAge = (value) => {
   return age;
 };
 
+const serializePlayer = (_, ret) => {
+  const ordered = {};
+  const preferredOrder = [
+    '_id',
+    'firstName',
+    'lastName',
+    'gender',
+    'birthDate',
+    'age',
+    'handedness',
+    'playingStyle',
+    'blade',
+    'country',
+    'forehands',
+    'backhand',
+    'createdAt',
+    'updatedAt'
+  ];
+
+  preferredOrder.forEach((key) => {
+    if (Object.prototype.hasOwnProperty.call(ret, key)) {
+      ordered[key] = ret[key];
+    }
+  });
+
+  Object.keys(ret).forEach((key) => {
+    if (!Object.prototype.hasOwnProperty.call(ordered, key)) {
+      ordered[key] = ret[key];
+    }
+  });
+
+  delete ordered.__v;
+
+  return ordered;
+};
+
 const playerSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -97,9 +133,11 @@ const playerSchema = new mongoose.Schema({
     trim: true
   }
 }, {
+  id: false,
+  versionKey: false,
   timestamps: true,
-  toJSON: { virtuals: true },
-  toObject: { virtuals: true }
+  toJSON: { virtuals: true, transform: serializePlayer },
+  toObject: { virtuals: true, transform: serializePlayer }
 });
 
 playerSchema.virtual('age').get(function getAge() {
