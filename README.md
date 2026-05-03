@@ -72,7 +72,7 @@ Przyklady:
   "playingStyle": "Offensive - Inverted",
   "blade": "Butterfly Timo Boll ALC",
   "country": "Germany",
-  "forehands": "Dignics 09C",
+  "forehand": "Dignics 09C",
   "backhand": "Dignics 05"
 }
 ```

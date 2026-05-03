@@ -49,7 +49,7 @@ const serializePlayer = (_, ret) => {
     'playingStyle',
     'blade',
     'country',
-    'forehands',
+    'forehand',
     'backhand',
     'createdAt',
     'updatedAt'
@@ -131,7 +131,7 @@ const playerSchema = new mongoose.Schema({
     required: [true, 'Country is required'],
     trim: true
   },
-  forehands: {
+  forehand: {
     type: String,
     required: true,
     trim: true
