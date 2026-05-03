@@ -31,19 +31,37 @@ app.get('/', (req, res) => {
     name: 'Table Tennis Players API',
     version: '1.0.0',
     endpoints: {
-      'GET /api/players': 'Get all players',
+      'GET /api/players': 'Get all players (filters: gender, handedness, grip, firstName, lastName, country, playingStyle)',
       'GET /api/players/:id': 'Get player by ID',
       'GET /api/players?gender=Male': 'Filter by gender',
-      'GET /api/players?playingStyle=Modern Defender': 'Filter by style',
+      'GET /api/players?grip=Shakehand': 'Filter by grip',
+      'GET /api/players?country=Poland': 'Filter by country (case-insensitive)',
+      'GET /api/players?firstName=timo&lastName=boll': 'Filter by first/last name (case-insensitive)',
+      'GET /api/players?playingStyle=Modern Defender': 'Filter by style group',
+      'GET /api/players?playingStyle=Offensive - Inverted': 'Filter by exact style',
       'GET /api/players?handedness=Left-handed': 'Filter by handedness',
+      'POST /api/players': 'Add one or many players (requires x-api-key)',
+      'PUT /api/players/:id': 'Update player (requires x-api-key)',
+      'DELETE /api/players/:id': 'Delete player (requires x-api-key)'
     },
     playingStyles: [
-      'Offensive - Close to Table',
-      'Offensive - Far from Table',
-      'Modern Defender',
-      'Classical Defender',
-      'Close to the Table Long Pimple Blocker'
-    ]
+      'Offensive - Inverted',
+      'Offensive - Long Pimples',
+      'Offensive - Short Pimples',
+      'Offensive - Long and Short Pimples',
+      'Offensive - Anti',
+      'Modern Defender - Inverted',
+      'Modern Defender - Long Pimples',
+      'Modern Defender - Short Pimples',
+      'Modern Defender - Long and Short Pimples',
+      'Modern Defender - Anti',
+      'Classical Defender - Inverted',
+      'Classical Defender - Long Pimples',
+      'Classical Defender - Short Pimples',
+      'Classical Defender - Long and Short Pimples',
+      'Classical Defender - Anti'
+    ],
+    grips: ['Shakehand', 'Chinese Penhold', 'Japanese Penhold', 'Tigerwing']
   });
 });
 
