@@ -112,12 +112,15 @@ const playerSchema = new mongoose.Schema({
     enum: [
       'Offensive - Inverted',
       'Offensive - Long Pimples',
+      'Offensive - Short Pimples',
       'Offensive - Anti',
       'Modern Defender - Inverted',
       'Modern Defender - Long Pimples',
+      'Modern Defender - Short Pimples',
       'Modern Defender - Anti',
       'Classical Defender - Inverted',
       'Classical Defender - Long Pimples',
+      'Classical Defender - Short Pimples',
       'Classical Defender - Anti',
     ]
   },
