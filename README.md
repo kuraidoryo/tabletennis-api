@@ -34,7 +34,7 @@ node src/app.js
 ## Endpointy
 
 - `GET /` - informacje o API
-- `GET /api/players` - lista zawodnikow (opcjonalne filtry: `gender`, `handedness`, `firstName`, `lastName`, `playingStyle`, `grip`)
+- `GET /api/players` - lista zawodnikow (opcjonalne filtry: `gender`, `handedness`, `firstName`, `lastName`, `country`, `playingStyle`, `grip`)
 - `GET /api/players/:id` - pojedynczy zawodnik
 - `POST /api/players` - dodanie zawodnika (**wymaga** naglowka `x-api-key`)
 - `PUT /api/players/:id` - aktualizacja zawodnika (**wymaga** naglowka `x-api-key`)
@@ -43,6 +43,7 @@ node src/app.js
 ### Filtrowanie (GET /api/players)
 
 - Imie i nazwisko sa wyszukiwane **bez wrazliwosci na wielkosc liter**
+- Kraj (`country`) jest wyszukiwany **bez wrazliwosci na wielkosc liter**
 - Mozesz filtrowac po samym imieniu, samym nazwisku albo po obu naraz
 - `playingStyle` obsluguje 3 poziomy szczegolowosci:
   - ogolnie: `Offensive`, `Defensive`
@@ -54,6 +55,7 @@ Przyklady:
 - `GET /api/players?firstName=timo`
 - `GET /api/players?lastName=BOLL`
 - `GET /api/players?firstName=timo&lastName=boll`
+- `GET /api/players?country=poland`
 - `GET /api/players?playingStyle=Offensive`
 - `GET /api/players?playingStyle=Defensive`
 - `GET /api/players?playingStyle=Modern Defender`

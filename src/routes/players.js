@@ -29,6 +29,9 @@ router.get('/', async (req, res) => {
     if (req.query.lastName) {
       filter.lastName = { $regex: new RegExp(escapeRegex(req.query.lastName.trim()), 'i') };
     }
+    if (req.query.country) {
+      filter.country = { $regex: new RegExp(escapeRegex(req.query.country.trim()), 'i') };
+    }
 
     if (req.query.playingStyle) {
       filter.playingStyle = { $regex: buildPlayingStyleRegex(req.query.playingStyle) };
