@@ -70,8 +70,8 @@ Przyklady:
   "handedness": "Left-handed",
   "grip": "Shakehand",
   "playingStyle": "Offensive - Inverted",
-  "blade": "Butterfly Timo Boll ALC",
   "country": "Germany",
+  "blade": "Butterfly Timo Boll ALC",
   "forehand": "Dignics 09C",
   "backhand": "Dignics 05"
 }

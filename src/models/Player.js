@@ -47,8 +47,8 @@ const serializePlayer = (_, ret) => {
     'handedness',
     'grip',
     'playingStyle',
-    'blade',
     'country',
+    'blade',
     'forehand',
     'backhand',
     'createdAt',
@@ -121,14 +121,14 @@ const playerSchema = new mongoose.Schema({
       'Classical Defender - Anti',
     ]
   },
-  blade: {
-    type: String,
-    required: true,
-    trim: true
-  },
   country: {
     type: String,
     required: [true, 'Country is required'],
+    trim: true
+  },
+  blade: {
+    type: String,
+    required: true,
     trim: true
   },
   forehand: {
