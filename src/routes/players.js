@@ -21,6 +21,7 @@ router.get('/', async (req, res) => {
 
     if (req.query.gender) filter.gender = req.query.gender;
     if (req.query.handedness) filter.handedness = req.query.handedness;
+    if (req.query.grip) filter.grip = req.query.grip;
 
     if (req.query.firstName) {
       filter.firstName = { $regex: new RegExp(escapeRegex(req.query.firstName.trim()), 'i') };

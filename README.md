@@ -2,6 +2,8 @@
 
 REST API do zarzadzania zawodnikami tenisa stolowego (Node.js, Express, MongoDB).
 
+API online: https://tabletennis-api.onrender.com
+
 ## Wymagania
 
 - Node.js 18+
@@ -32,7 +34,7 @@ node src/app.js
 ## Endpointy
 
 - `GET /` - informacje o API
-- `GET /api/players` - lista zawodnikow (opcjonalne filtry: `gender`, `handedness`, `firstName`, `lastName`, `playingStyle`)
+- `GET /api/players` - lista zawodnikow (opcjonalne filtry: `gender`, `handedness`, `firstName`, `lastName`, `playingStyle`, `grip`)
 - `GET /api/players/:id` - pojedynczy zawodnik
 - `POST /api/players` - dodanie zawodnika (**wymaga** naglowka `x-api-key`)
 - `PUT /api/players/:id` - aktualizacja zawodnika (**wymaga** naglowka `x-api-key`)
@@ -66,6 +68,7 @@ Przyklady:
   "gender": "Male",
   "birthDate": "1981/03/08",
   "handedness": "Left-handed",
+  "grip": "Shakehand",
   "playingStyle": "Offensive - Inverted",
   "blade": "Butterfly Timo Boll ALC",
   "country": "Germany",
@@ -87,3 +90,10 @@ Dozwolone wartosci `playingStyle`:
 - `Classical Defender - Inverted`
 - `Classical Defender - Long Pimples`
 - `Classical Defender - Anti`
+
+Dozwolone wartosci `grip`:
+
+- `Shakehand`
+- `Chinese Penhold`
+- `Japanese Penhold`
+- `Tigerwing`

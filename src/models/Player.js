@@ -45,6 +45,7 @@ const serializePlayer = (_, ret) => {
     'birthDate',
     'age',
     'handedness',
+    'grip',
     'playingStyle',
     'blade',
     'country',
@@ -99,6 +100,11 @@ const playerSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ['Right-handed', 'Left-handed']
+  },
+  grip: {
+    type: String,
+    required: [true, 'Grip is required'],
+    enum: ['Shakehand', 'Chinese Penhold', 'Japanese Penhold', 'Tigerwing']
   },
   playingStyle: {
     type: String,
