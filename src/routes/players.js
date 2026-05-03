@@ -60,8 +60,19 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', auth, async (req, res) => {
   try {
-    const player = await Player.create(req.body);
-    res.status(201).json({ success: true, data: player });
+    const isArray = Array.isArray(req.body);
+    
+    if (isArray) {
+      const players = await Player.insertMany(req.body, { runValidators: true });
+      res.status(201).json({
+        success: true,
+        message: `Added ${players.length} players`,
+        data: players
+      });
+    } else {
+      const player = await Player.create(req.body);
+      res.status(201).json({ success: true, data: player });
+    }
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
   }
