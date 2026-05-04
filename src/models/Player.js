@@ -3,9 +3,13 @@ const mongoose = require('mongoose');
 const birthDateRegex = /^\d{4}\/\d{2}\/\d{2}$/;
 const UNKNOWN_VALUE = '?';
 const surroundingQuotesRegex = /^['"]|['"]$/g;
+const unknownValueRegex = /^\s*['"]?\?['"]?\s*$/;
 
 const normalizeInputValue = (value) => {
   if (typeof value !== 'string') return value;
+
+  if (unknownValueRegex.test(value)) return UNKNOWN_VALUE;
+
   return value.trim().replace(surroundingQuotesRegex, '');
 };
 
@@ -33,6 +37,7 @@ const isValidBirthDate = (value) => {
 const calculateAge = (value) => {
   const normalizedValue = normalizeInputValue(value);
   if (isUnknown(normalizedValue)) return UNKNOWN_VALUE;
+  if (typeof normalizedValue !== 'string' || !birthDateRegex.test(normalizedValue)) return UNKNOWN_VALUE;
 
   const [yearStr, monthStr, dayStr] = normalizedValue.split('/');
   const birthYear = Number(yearStr);
