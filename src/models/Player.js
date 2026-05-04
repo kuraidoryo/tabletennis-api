@@ -2,14 +2,23 @@ const mongoose = require('mongoose');
 
 const birthDateRegex = /^\d{4}\/\d{2}\/\d{2}$/;
 const UNKNOWN_VALUE = '?';
+const surroundingQuotesRegex = /^['"]|['"]$/g;
 
-const isUnknown = (value) => typeof value === 'string' && value.trim() === UNKNOWN_VALUE;
+const normalizeInputValue = (value) => {
+  if (typeof value !== 'string') return value;
+  return value.trim().replace(surroundingQuotesRegex, '');
+};
+
+const isUnknown = (value) => normalizeInputValue(value) === UNKNOWN_VALUE;
 
 const isValidBirthDate = (value) => {
-  if (isUnknown(value)) return true;
-  if (!birthDateRegex.test(value)) return false;
+  const normalizedValue = normalizeInputValue(value);
 
-  const [yearStr, monthStr, dayStr] = value.split('/');
+  if (isUnknown(normalizedValue)) return true;
+  if (typeof normalizedValue !== 'string') return false;
+  if (!birthDateRegex.test(normalizedValue)) return false;
+
+  const [yearStr, monthStr, dayStr] = normalizedValue.split('/');
   const year = Number(yearStr);
   const month = Number(monthStr);
   const day = Number(dayStr);
@@ -22,9 +31,10 @@ const isValidBirthDate = (value) => {
 };
 
 const calculateAge = (value) => {
-  if (isUnknown(value)) return UNKNOWN_VALUE;
+  const normalizedValue = normalizeInputValue(value);
+  if (isUnknown(normalizedValue)) return UNKNOWN_VALUE;
 
-  const [yearStr, monthStr, dayStr] = value.split('/');
+  const [yearStr, monthStr, dayStr] = normalizedValue.split('/');
   const birthYear = Number(yearStr);
   const birthMonth = Number(monthStr);
   const birthDay = Number(dayStr);
@@ -97,6 +107,7 @@ const playerSchema = new mongoose.Schema({
   birthDate: {
     type: String,
     required: [true, 'Birth date is required'],
+    set: normalizeInputValue,
     validate: {
       validator: isValidBirthDate,
       message: 'Birth date must be in YYYY/MM/DD format and be a valid date'
