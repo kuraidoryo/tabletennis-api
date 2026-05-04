@@ -81,16 +81,25 @@ Przyklady:
 
 `age` jest wyliczane automatycznie na podstawie `birthDate` i zwracane w odpowiedzi API.
 
+Jesli nie znasz jakiejkolwiek wartosci pola, mozesz wpisac `?` (np. `birthDate: "?"`, `grip: "?"`, `playingStyle: "?"`).  
+Dla `birthDate: "?"` API zwroci `age: "?"`.
+
 Dozwolone wartosci `playingStyle`:
 
 - `Offensive - Inverted`
 - `Offensive - Long Pimples`
+- `Offensive - Short Pimples`
+- `Offensive - Long and Short Pimples`
 - `Offensive - Anti`
 - `Modern Defender - Inverted`
 - `Modern Defender - Long Pimples`
+- `Modern Defender - Short Pimples`
+- `Modern Defender - Long and Short Pimples`
 - `Modern Defender - Anti`
 - `Classical Defender - Inverted`
 - `Classical Defender - Long Pimples`
+- `Classical Defender - Short Pimples`
+- `Classical Defender - Long and Short Pimples`
 - `Classical Defender - Anti`
 
 Dozwolone wartosci `grip`:

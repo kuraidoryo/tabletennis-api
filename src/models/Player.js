@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 
 const birthDateRegex = /^\d{4}\/\d{2}\/\d{2}$/;
+const UNKNOWN_VALUE = '?';
+
+const isUnknown = (value) => typeof value === 'string' && value.trim() === UNKNOWN_VALUE;
 
 const isValidBirthDate = (value) => {
+  if (isUnknown(value)) return true;
   if (!birthDateRegex.test(value)) return false;
 
   const [yearStr, monthStr, dayStr] = value.split('/');
@@ -18,6 +22,8 @@ const isValidBirthDate = (value) => {
 };
 
 const calculateAge = (value) => {
+  if (isUnknown(value)) return UNKNOWN_VALUE;
+
   const [yearStr, monthStr, dayStr] = value.split('/');
   const birthYear = Number(yearStr);
   const birthMonth = Number(monthStr);
@@ -86,7 +92,7 @@ const playerSchema = new mongoose.Schema({
   gender: {
     type: String,
     required: true,
-    enum: ['Male', 'Female', 'Other']
+    enum: ['Male', 'Female', 'Other', UNKNOWN_VALUE]
   },
   birthDate: {
     type: String,
@@ -99,12 +105,12 @@ const playerSchema = new mongoose.Schema({
   handedness: {
     type: String,
     required: true,
-    enum: ['Right-handed', 'Left-handed']
+    enum: ['Right-handed', 'Left-handed', UNKNOWN_VALUE]
   },
   grip: {
     type: String,
     required: [true, 'Grip is required'],
-    enum: ['Shakehand', 'Chinese Penhold', 'Japanese Penhold', 'Tigerwing']
+    enum: ['Shakehand', 'Chinese Penhold', 'Japanese Penhold', 'Tigerwing', UNKNOWN_VALUE]
   },
   playingStyle: {
     type: String,
@@ -125,6 +131,7 @@ const playerSchema = new mongoose.Schema({
       'Classical Defender - Short Pimples',
       'Classical Defender - Long and Short Pimples',
       'Classical Defender - Anti',
+      UNKNOWN_VALUE,
     ]
   },
   country: {
